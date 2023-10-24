@@ -35,7 +35,7 @@ function themNv() {
         return (xepLoai = "nhân viên xuất sắc");
       } else if (this.gioLam >= 176 && this.gioLam < 192) {
         return (xepLoai = "nhân viên giỏi");
-      } else if (this.gioLam >= 160 && this.gioLam < 175) {
+      } else if (this.gioLam >= 160 && this.gioLam < 176) {
         return (xepLoai = "nhân viên khá");
       } else {
         return (xepLoai = "nhân viên trung bình");
@@ -43,9 +43,15 @@ function themNv() {
     },
   };
   // validate
-  var isValid = isValid & kiemTraDoDai(nv.tk, "tbTKNV", 4, 6);
+  // kiểm tra input rỗng
+  // độ dài input
+  var isValid =
+    kiemTraDoDai(nv.tk, "tbTKNV", 4, 6) && inputRong(nv.tk, "tbTKNV");
+  //email
+  isValid = isValid & kiemTraEmail(nv.email);
 
-  dsnv.push(nv);
-
-  renderDsnv(dsnv);
+  if (isValid) {
+    dsnv.push(nv);
+    renderDsnv(dsnv);
+  }
 }
