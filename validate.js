@@ -103,27 +103,25 @@ function kiemTraNgay(ngayLam) {
 }
 
 function kiemTraLuong(luongCb) {
-  var length = luongCb.length;
-  if (length > 0) {
-    if ((luongCb >= 1000000) & (luongCb <= 20000000)) {
-      document.getElementById("tbLuongCB").innerText = "";
-      return true;
-    } else {
-      document.getElementById("tbLuongCB").innerText = "Vui lòng nhập lại tiền";
-      return false;
-    }
+  // var length = luongCb.length;
+  // if (length > 0) {
+  if ((luongCb >= 1000000) & (luongCb <= 20000000)) {
+    document.getElementById("tbLuongCB").innerText = "";
+    return true;
+  } else {
+    document.getElementById("tbLuongCB").innerText = "Vui lòng nhập lại tiền";
+    return false;
   }
 }
 
 function kiemTraGio(gioLam) {
-  var length = gioLam.length;
-  if (length > 0) {
-    if ((gioLam >= 80) & (luongCb <= 200)) {
-      document.getElementById("tbGiolam").innerText = "";
-      return true;
-    } else {
-      document.getElementById("tbGiolam").innerText = "Vui lòng nhập lại tiền";
-      return false;
-    }
+  // var length = gioLam.length;
+  // if (length > 0) {
+  if (gioLam >= 80 && luongCb <= 200) {
+    document.getElementById("tbGiolam").innerText = "";
+    return true;
+  } else {
+    document.getElementById("tbGiolam").innerText = "Vui lòng nhập lại tiền";
+    return false;
   }
 }

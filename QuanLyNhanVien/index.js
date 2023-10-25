@@ -62,9 +62,9 @@ function themNv() {
   //Ngày làm
   isValid = inputRong(nv.ngayLam, "tbNgay") & kiemTraNgay(nv.ngayLam);
   // Lương cơ bản
-  isValid = inputRong(nv.luongCb, "tbLuongCB") & kiemTraLuong(nv.luongCb);
+  isValid = inputRong(nv.luongCb, "tbLuongCB") && kiemTraLuong(nv.luongCb);
   // Giờ làm
-  isValid = inputRong(nv.gioLam, "tbGiolam") & kiemTraLuong(nv.gioLam);
+  isValid = inputRong(nv.gioLam, "tbGiolam") && kiemTraGio(nv.gioLam);
 
   if (isValid) {
     dsnv.push(nv);
