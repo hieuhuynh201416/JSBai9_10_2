@@ -43,12 +43,28 @@ function themNv() {
     },
   };
   // validate
-  // kiểm tra input rỗng
-  // độ dài input
+
+  // tài khoản
   var isValid =
-    kiemTraDoDai(nv.tk, "tbTKNV", 4, 6) && inputRong(nv.tk, "tbTKNV");
+    inputRong(nv.tk, "tbTKNV") & kiemTraDoDai(nv.tk, "tbTKNV", 4, 6);
+
   //email
-  isValid = isValid & kiemTraEmail(nv.email);
+  isValid = inputRong(nv.email, "tbEmail") & kiemTraEmail(nv.email);
+
+  // tên
+  isValid = inputRong(nv.ten, "tbTen") & kiemTraChu(nv.ten);
+
+  //mật khẩu
+  isValid =
+    inputRong(nv.matKhau, "tbMatKhau") &
+    kiemTraDoDai(nv.matKhau, "tbMatKhau", 6, 10) &
+    kiemTraMatKhau(nv.matKhau);
+  //Ngày làm
+  isValid = inputRong(nv.ngayLam, "tbNgay") & kiemTraNgay(nv.ngayLam);
+  // Lương cơ bản
+  isValid = inputRong(nv.luongCb, "tbLuongCB") & kiemTraLuong(nv.luongCb);
+  // Giờ làm
+  isValid = inputRong(nv.gioLam, "tbGiolam") & kiemTraLuong(nv.gioLam);
 
   if (isValid) {
     dsnv.push(nv);
