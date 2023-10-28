@@ -117,11 +117,32 @@ function kiemTraLuong(luongCb) {
 function kiemTraGio(gioLam) {
   // var length = gioLam.length;
   // if (length > 0) {
-  if (gioLam >= 80 && luongCb <= 200) {
+  if (gioLam >= 80 && gioLam <= 200) {
     document.getElementById("tbGiolam").innerText = "";
     return true;
   } else {
-    document.getElementById("tbGiolam").innerText = "Vui lòng nhập lại tiền";
+    document.getElementById("tbGiolam").innerText = "Vui lòng nhập giờ";
+    return false;
+  }
+}
+
+function kiemTraChucVu(chucVu) {
+  var chucVuElements = document.getElementsByName("chucVu");
+  var chucVuChecked = false;
+
+  for (var i = 0; i < chucVuElements.length; i++) {
+    if (chucVuElements[i].checked) {
+      chucVuChecked = true;
+      break;
+    }
+  }
+
+  if (chucVuChecked) {
+    document.getElementById("tbChucVu").innerText = "";
+    return true;
+  } else {
+    document.getElementById("tbChucVu").innerText =
+      "Vui lòng chọn một chức vụ.";
     return false;
   }
 }

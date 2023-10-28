@@ -57,12 +57,15 @@ function themNv() {
   //mật khẩu
   isValid =
     inputRong(nv.matKhau, "tbMatKhau") &
-    kiemTraDoDai(nv.matKhau, "tbMatKhau", 6, 10) &
+      kiemTraDoDai(nv.matKhau, "tbMatKhau", 6, 10) &&
     kiemTraMatKhau(nv.matKhau);
+
   //Ngày làm
   isValid = inputRong(nv.ngayLam, "tbNgay") & kiemTraNgay(nv.ngayLam);
   // Lương cơ bản
-  isValid = inputRong(nv.luongCb, "tbLuongCB") && kiemTraLuong(nv.luongCb);
+  isValid = inputRong(nv.luongCb, "tbLuongCB") & kiemTraLuong(nv.luongCb);
+  //Chức vụ
+  isValid = kiemTraChucVu(nv.chucVu);
   // Giờ làm
   isValid = inputRong(nv.gioLam, "tbGiolam") && kiemTraGio(nv.gioLam);
 
@@ -70,4 +73,19 @@ function themNv() {
     dsnv.push(nv);
     renderDsnv(dsnv);
   }
+}
+
+function xoaNv(tk) {
+  /**
+   * splice(vị trí cần xóa/ số lượng xóa)
+   * 1. từ id tìm vị trí => findIndex
+   * 2. sử dụng splice để remove
+   * 3. update lại layout*/
+
+  var viTri = dsnv.findIndex(function (item) {
+    return item.tk == tk;
+    // console.log("item trong findINDEX: ", item);
+  });
+  dsnv.splice(viTri, 1);
+  renderDssv(dsnv);
 }

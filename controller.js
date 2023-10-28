@@ -11,7 +11,12 @@ function renderDsnv(dsnv) {
            <td>${data.ngayLam}</td>
            <td>${data.chucVu}</td>
            <td>${data.tongLuong()}</td>
-           <td>${data.xepLoai()}</td>    
+           <td>${data.xepLoai()}</td> 
+           <td>
+           <button onclick="xoaNv('${
+             data.tk
+           }')" class="btn btn-danger">Xóa</button>
+              </td>   
           </tr>`;
     contentHTML = contentHTML + trString;
   }
