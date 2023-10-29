@@ -16,6 +16,9 @@ function renderDsnv(dsnv) {
            <button onclick="xoaNv('${
              data.tk
            }')" class="btn btn-danger">Xóa</button>
+           <button onclick="suaNv('${
+             data.tk
+           }')" class="btn btn-success" data-toggle="modal" data-target="#myModal">Sửa</button>
               </td>   
           </tr>`;
     contentHTML = contentHTML + trString;

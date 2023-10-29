@@ -78,7 +78,7 @@ function kiemTraMatKhau(matKhau) {
         return true;
       } else {
         document.getElementById("tbMatKhau").innerText =
-          "Vui lòng kiểm tra lại điều kiện";
+          "Vui lòng kiểm tra email (số,kí tự đặc biệt,Hoa)";
         return false;
       }
     }

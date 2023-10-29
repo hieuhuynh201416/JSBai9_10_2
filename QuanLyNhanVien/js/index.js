@@ -1,5 +1,19 @@
 var dsnv = [];
-
+var viTriSua = -1;
+var dataJson = localStorage.getItem("DSNV_LOCAL");
+if (dataJson != null) {
+  let result = JSON.parse(dataJson);
+  dsnv = result.map(function (item) {
+    return new nhanVien(
+      item.tk,
+      item.ten,
+      item.email,
+      item.ngayLam,
+      item.chucVu
+    );
+  });
+  renderDsnv(dsnv);
+}
 function themNv() {
   var _taikhoan = document.getElementById("tknv").value;
   var _ten = document.getElementById("name").value;
@@ -22,11 +36,11 @@ function themNv() {
     gioLam: _giolam,
     tongLuong: function () {
       if (this.chucVu == "Sếp") {
-        return (tongLuong = this.luongCb * 3);
+        return this.luongCb * 3;
       } else if (this.chucVu == "Trưởng phòng") {
-        return (tongLuong = this.luongCb * 2);
+        return this.luongCb * 2;
       } else {
-        return (tongLuong = this.luongCb);
+        return this.luongCb;
       }
     },
 
@@ -71,21 +85,67 @@ function themNv() {
 
   if (isValid) {
     dsnv.push(nv);
+    var dataJson = JSON.stringify(dsnv);
+    localStorage.setItem("DSNV_LOCAL", dataJson);
     renderDsnv(dsnv);
   }
 }
 
-function xoaNv(tk) {
-  /**
-   * splice(vị trí cần xóa/ số lượng xóa)
-   * 1. từ id tìm vị trí => findIndex
-   * 2. sử dụng splice để remove
-   * 3. update lại layout*/
-
+function xoaNv(id) {
   var viTri = dsnv.findIndex(function (item) {
-    return item.tk == tk;
-    // console.log("item trong findINDEX: ", item);
+    return item.tk == id;
   });
   dsnv.splice(viTri, 1);
-  renderDssv(dsnv);
+  //cập nhật lại Storage
+  var dataJson = JSON.stringify(dsnv);
+  localStorage.setItem("DSNV_LOCAL", dataJson);
+  renderDsnv(dsnv);
+}
+
+function suaNv(id) {
+  var viTri = dsnv.findIndex(function (item) {
+    return item.tk == id;
+  });
+  var nv = dsnv[viTri];
+  viTriSua = viTri;
+
+  document.getElementById("tknv").value = nv.tk;
+  document.getElementById("name").value = nv.ten;
+  document.getElementById("email").value = nv.email;
+  document.getElementById("password").value = nv.matKhau;
+  document.getElementById("datepicker").value = nv.ngayLam;
+  document.getElementById("luongCB").value = nv.luongCb * 1;
+  document.getElementById("chucvu").value = nv.chucVu;
+  document.getElementById("gioLam").value = nv.gioLam * 1;
+}
+
+function capNhatNv() {
+  var _taikhoan = document.getElementById("tknv").value;
+  var _ten = document.getElementById("name").value;
+  var _email = document.getElementById("email").value;
+  var _matKhau = document.getElementById("password").value;
+  var _ngaylam = document.getElementById("datepicker").value;
+  var _luongcb = document.getElementById("luongCB").value * 1;
+  var _chucvu = document.getElementById("chucvu").value;
+  var _giolam = document.getElementById("gioLam").value * 1;
+
+  // vị trí
+  if (viTriSua !== -1) {
+    var nhanVien1 = new nhanVien(
+      _taikhoan,
+      _ten,
+      _email,
+      _matKhau,
+      _ngaylam,
+      _chucvu,
+      _luongcb,
+      _giolam
+    );
+    dsnv[viTriSua] = nhanVien1;
+    console.log("nhanVien1: ", nhanVien1);
+
+    var dataJson = JSON.stringify(dsnv);
+    localStorage.setItem("DSNV_LOCAL", dataJson);
+    renderDsnv(dsnv);
+  }
 }
