@@ -20,17 +20,18 @@ if (dataJson != null) {
   renderDsnv(dsnv);
 }
 
-function clearThongTinCu () {
-  document.getElementById("tknv").value ='';
-  document.getElementById("name").value = '';
-  document.getElementById("email").value = '';
-  document.getElementById("password").value = '';
-  document.getElementById("datepicker").value = '';
-  document.getElementById("luongCB").value ='';
-  document.getElementById("chucvu").value = '';
-  document.getElementById("gioLam").value = '';
+function clearThongTinCu() {
+  document.getElementById("tknv").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("datepicker").value = "";
+  document.getElementById("luongCB").value = "";
+  document.getElementById("chucvu").value = "";
+  document.getElementById("gioLam").value = "";
 }
 
+//Thêm Nhân Viên
 function themNv() {
   var _taikhoan = document.getElementById("tknv").value;
   var _ten = document.getElementById("name").value;
@@ -80,7 +81,7 @@ function themNv() {
     inputRong(nv.tk, "tbTKNV") &&
     kiemTraDoDai(nv.tk, "tbTKNV", 4, 6) &&
     kiemtraTaiKhoanDaTonTai(nv.tk, "tbTKNV", dsnv);
-    clearThongTinCu();
+  clearThongTinCu();
   //email
   var isEmailValid = inputRong(nv.email, "tbEmail") && kiemTraEmail(nv.email);
 
@@ -122,6 +123,7 @@ function themNv() {
   }
 }
 
+//Xóa Nhân Viên
 function xoaNv(id) {
   var viTri = dsnv.findIndex(function (item) {
     return item.tk == id;
@@ -133,6 +135,7 @@ function xoaNv(id) {
   renderDsnv(dsnv);
 }
 
+//Sửa Nhân Viên
 function suaNv(id) {
   var viTri = dsnv.findIndex(function (item) {
     return item.tk === id;
@@ -141,7 +144,7 @@ function suaNv(id) {
   var nv = dsnv[viTri];
   viTriSua = viTri;
 
-  console.log(id,nv)
+  console.log(id, nv);
 
   document.getElementById("tknv").value = nv.tk;
   document.getElementById("name").value = nv.ten;
@@ -153,6 +156,7 @@ function suaNv(id) {
   document.getElementById("gioLam").value = nv.gioLam * 1;
 }
 
+//Cập nhật Nhân Viên
 function capNhatNv() {
   var _taikhoan = document.getElementById("tknv").value;
   var _ten = document.getElementById("name").value;
@@ -181,4 +185,34 @@ function capNhatNv() {
     document.getElementById("btnDong").click();
     renderDsnv(dsnv);
   }
+}
+
+// Hàm lọc danh sách nhân viên theo xếp loại
+function filterNhanVienTheoXepLoai(xepLoai) {
+  return dsnv.filter(function (nv) {
+    return nv.xepLoai() === xepLoai;
+  });
+}
+
+// Lọc và hiển thị danh sách nhân viên theo xếp loại
+var nvXuatSac = filterNhanVienTheoXepLoai("nhân viên xuất sắc");
+var nvGioi = filterNhanVienTheoXepLoai("nhân viên giỏi");
+var nvKha = filterNhanVienTheoXepLoai("nhân viên khá");
+
+// Hiển thị danh sách nhân viên xuất sắc
+document.getElementById("xuatSacList").textContent = "Nhân viên xuất sắc: ";
+for (var i = 0; i < nvXuatSac.length; i++) {
+  document.getElementById("xuatSacList").textContent += nvXuatSac[i].ten + "; ";
+}
+
+// Hiển thị danh sách nhân viên giỏi
+document.getElementById("gioiList").textContent = "Nhân viên giỏi: ";
+for (var i = 0; i < nvGioi.length; i++) {
+  document.getElementById("gioiList").textContent += nvGioi[i].ten + "; ";
+}
+
+// Hiển thị danh sách nhân viên khá
+document.getElementById("khaList").textContent = "Nhân viên khá: ";
+for (var i = 0; i < nvKha.length; i++) {
+  document.getElementById("khaList").textContent += nvKha[i].ten + ", ";
 }
