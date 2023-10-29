@@ -2,17 +2,19 @@ function nhanVien(
   _taikhoan,
   _ten,
   _email,
+  _matkhau,
   _ngaylam,
-  _chucvu,
   _luongcb,
+  _chucvu,
   _giolam
 ) {
   this.tk = _taikhoan;
   this.ten = _ten;
   this.email = _email;
+  this.matKhau = _matkhau;
   this.ngayLam = _ngaylam;
-  this.chucVu = _chucvu;
   this.luongCb = _luongcb;
+  this.chucVu = _chucvu;
   this.gioLam = _giolam;
   this.tongLuong = function () {
     if (this.chucVu == "Sếp") {

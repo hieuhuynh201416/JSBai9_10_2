@@ -8,12 +8,29 @@ if (dataJson != null) {
       item.tk,
       item.ten,
       item.email,
+      item.matKhau,
       item.ngayLam,
-      item.chucVu
+      item.luongCb,
+      item.chucVu,
+      item.gioLam,
+      item.tongLuong,
+      item.xepLoai
     );
   });
   renderDsnv(dsnv);
 }
+
+function clearThongTinCu () {
+  document.getElementById("tknv").value ='';
+  document.getElementById("name").value = '';
+  document.getElementById("email").value = '';
+  document.getElementById("password").value = '';
+  document.getElementById("datepicker").value = '';
+  document.getElementById("luongCB").value ='';
+  document.getElementById("chucvu").value = '';
+  document.getElementById("gioLam").value = '';
+}
+
 function themNv() {
   var _taikhoan = document.getElementById("tknv").value;
   var _ten = document.getElementById("name").value;
@@ -59,34 +76,48 @@ function themNv() {
   // validate
 
   // tài khoản
-  var isValid =
-    inputRong(nv.tk, "tbTKNV") & kiemTraDoDai(nv.tk, "tbTKNV", 4, 6);
-
+  var isTaiKhoanValid =
+    inputRong(nv.tk, "tbTKNV") &&
+    kiemTraDoDai(nv.tk, "tbTKNV", 4, 6) &&
+    kiemtraTaiKhoanDaTonTai(nv.tk, "tbTKNV", dsnv);
+    clearThongTinCu();
   //email
-  isValid = inputRong(nv.email, "tbEmail") & kiemTraEmail(nv.email);
+  var isEmailValid = inputRong(nv.email, "tbEmail") && kiemTraEmail(nv.email);
 
   // tên
-  isValid = inputRong(nv.ten, "tbTen") & kiemTraChu(nv.ten);
+  var isTenValid = inputRong(nv.ten, "tbTen") && kiemTraChu(nv.ten);
 
   //mật khẩu
-  isValid =
-    inputRong(nv.matKhau, "tbMatKhau") &
-      kiemTraDoDai(nv.matKhau, "tbMatKhau", 6, 10) &&
+  var isMatKhauValid =
+    inputRong(nv.matKhau, "tbMatKhau") &&
+    kiemTraDoDai(nv.matKhau, "tbMatKhau", 6, 10) &&
     kiemTraMatKhau(nv.matKhau);
 
   //Ngày làm
-  isValid = inputRong(nv.ngayLam, "tbNgay") & kiemTraNgay(nv.ngayLam);
+  var isNgayLamValid =
+    inputRong(nv.ngayLam, "tbNgay") && kiemTraNgay(nv.ngayLam);
   // Lương cơ bản
-  isValid = inputRong(nv.luongCb, "tbLuongCB") & kiemTraLuong(nv.luongCb);
+  var isLuongCoBanValid =
+    inputRong(nv.luongCb, "tbLuongCB") && kiemTraLuong(nv.luongCb);
   //Chức vụ
-  isValid = kiemTraChucVu(nv.chucVu);
+  var isChucVuValid = kiemTraChucVu(nv.chucVu);
   // Giờ làm
-  isValid = inputRong(nv.gioLam, "tbGiolam") && kiemTraGio(nv.gioLam);
+  var isGioLamValid = inputRong(nv.gioLam, "tbGiolam") && kiemTraGio(nv.gioLam);
 
-  if (isValid) {
+  if (
+    isTaiKhoanValid &&
+    isEmailValid &&
+    isTenValid &&
+    isMatKhauValid &&
+    isNgayLamValid &&
+    isLuongCoBanValid &&
+    isChucVuValid &&
+    isGioLamValid
+  ) {
     dsnv.push(nv);
     var dataJson = JSON.stringify(dsnv);
     localStorage.setItem("DSNV_LOCAL", dataJson);
+    document.getElementById("btnDong").click();
     renderDsnv(dsnv);
   }
 }
@@ -104,10 +135,13 @@ function xoaNv(id) {
 
 function suaNv(id) {
   var viTri = dsnv.findIndex(function (item) {
-    return item.tk == id;
+    return item.tk === id;
   });
+
   var nv = dsnv[viTri];
   viTriSua = viTri;
+
+  console.log(id,nv)
 
   document.getElementById("tknv").value = nv.tk;
   document.getElementById("name").value = nv.ten;
@@ -142,10 +176,9 @@ function capNhatNv() {
       _giolam
     );
     dsnv[viTriSua] = nhanVien1;
-    console.log("nhanVien1: ", nhanVien1);
-
     var dataJson = JSON.stringify(dsnv);
     localStorage.setItem("DSNV_LOCAL", dataJson);
+    document.getElementById("btnDong").click();
     renderDsnv(dsnv);
   }
 }

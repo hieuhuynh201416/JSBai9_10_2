@@ -1,6 +1,6 @@
 // kiểm tra ô input rỗng
 function inputRong(input, thongbao) {
-  if (input == "") {
+  if (input === "") {
     document.getElementById(thongbao).innerText = "Không được bỏ trống";
     return false;
   } else {
@@ -23,6 +23,16 @@ function kiemTraDoDai(value, idErr, min, max) {
       return false;
     }
   }
+}
+
+function kiemtraTaiKhoanDaTonTai(value, idErr, dssv) {
+  const taiKhoanTonTai = Boolean(dssv.find((nv) => nv.tk === value));
+  if (taiKhoanTonTai) {
+    document.getElementById(idErr).innerText = `Tài khoản đã tồn tại!`;
+    return false;
+  }
+  document.getElementById(idErr).innerText = "";
+  return true;
 }
 
 //kiểm tra email
@@ -127,17 +137,7 @@ function kiemTraGio(gioLam) {
 }
 
 function kiemTraChucVu(chucVu) {
-  var chucVuElements = document.getElementsByName("chucVu");
-  var chucVuChecked = false;
-
-  for (var i = 0; i < chucVuElements.length; i++) {
-    if (chucVuElements[i].checked) {
-      chucVuChecked = true;
-      break;
-    }
-  }
-
-  if (chucVuChecked) {
+  if (chucVu) {
     document.getElementById("tbChucVu").innerText = "";
     return true;
   } else {
